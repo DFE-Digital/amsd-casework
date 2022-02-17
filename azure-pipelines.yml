@@ -24,14 +24,14 @@ steps:
 - task: Npm@1
   inputs:
     command: 'install'
-    workingDir: 'ConcernsCaseWork.CypressTests'
+    workingDir: 'ConcernsCaseWork/ConcernsCaseWork.Integration.Tests'
 
 - task: PowerShell@2
   inputs:
     targetType: 'inline'
     script: './node_modules/cypress/bin/cypress run'
     errorActionPreference: 'continue'
-    workingDirectory: 'ConcernsCaseWork.CypressTests'
+    workingDirectory: 'ConcernsCaseWork/ConcernsCaseWork.Integration.Tests'
 
 - task: PublishTestResults@2
   inputs:
