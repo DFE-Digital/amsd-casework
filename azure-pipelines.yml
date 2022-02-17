@@ -24,19 +24,19 @@ steps:
 - task: Npm@1
   inputs:
     command: 'install'
-    workingDir: '/ConcernsCaseWork/ConcernsCaseWork.CypressTests/'
+    workingDir: 'ConcernsCaseWork.CypressTests'
 
 - task: PowerShell@2
   inputs:
     targetType: 'inline'
     script: './node_modules/cypress/bin/cypress run'
     errorActionPreference: 'continue'
-    workingDirectory: '/ConcernsCaseWork/ConcernsCaseWork.CypressTests/'
+    workingDirectory: 'ConcernsCaseWork.CypressTests'
 
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'JUnit'
     testResultsFiles: '**/TEST-*.xml'
-    searchFolder: 'ConcernsCaseWork/ConcernsCaseWork.CypressTests/cypress/reports'
+    searchFolder: 'cypress/reports'
     failTaskOnFailedTests: true
     testRunTitle: 'Cypress CC E2E'
