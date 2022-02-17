@@ -17,3 +17,26 @@ steps:
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
+- task: NodeTool@0
+  inputs:
+    versionSpec: '16.4.0'
+
+- task: Npm@1
+  inputs:
+    command: 'install'
+    workingDir: '/ConcernsCaseWork/ConcernsCaseWork.CypressTests/'
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: './node_modules/cypress/bin/cypress run'
+    errorActionPreference: 'continue'
+    workingDirectory: '/ConcernsCaseWork/ConcernsCaseWork.CypressTests/'
+
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/TEST-*.xml'
+    searchFolder: 'ConcernsCaseWork/ConcernsCaseWork.CypressTests/cypress/reports'
+    failTaskOnFailedTests: true
+    testRunTitle: 'Cypress CC E2E'
