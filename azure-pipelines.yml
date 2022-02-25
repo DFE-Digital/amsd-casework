@@ -13,30 +13,30 @@ pool:
 
 steps:
 - task: NodeTool@0
-    displayName:Install nodejs
   inputs:
     versionSpec: '16.4.0'
+    displayName: 'Install nodejs'
 
 - task: Npm@1
-    displayName:Install Npm
   inputs:
     command: 'install'
     workingDir: 'ConcernsCaseWork/ConcernsCaseWork.CypressTests'
+    displayName: 'Install Npm'
 
 
 - task: PowerShell@2
-    displayName:Run Cypress Tests
   inputs:
     targetType: 'inline'
     script: "npm run cy:run -- --env='url=https://amsd-casework-dev.london.cloudapps.digital,username=e2e.cypress.test,password=c0ncerns987casew0rk'"
     errorActionPreference: 'continue'
     workingDirectory: 'ConcernsCaseWork/ConcernsCaseWork.CypressTests'
+    displayName: 'Run Cypress Tests'
 
 - task: PublishTestResults@2
-    displayName:Publish Results
   inputs:
     testResultsFormat: 'JUnit'
     testResultsFiles: '**cypress/reports/mocha/mochawesome*.json'
     searchFolder: 'cypress/reports'
     failTaskOnFailedTests: true
     testRunTitle: 'Cypress CC E2E'
+    displayName: 'Publish Results'
