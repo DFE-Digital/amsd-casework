@@ -29,7 +29,7 @@ steps:
 - task: PowerShell@2
   inputs:
     targetType: 'inline'
-    script: './node_modules/cypress/bin/cypress run'
+    script: 'npm run cy:open -- --env=''url=https://amsd-casework-dev.london.cloudapps.digital,username=e2e.cypress.test,password=c0ncerns987casew0rk'''
     errorActionPreference: 'continue'
     workingDirectory: 'ConcernsCaseWork/ConcernsCaseWork.CypressTests'
 
