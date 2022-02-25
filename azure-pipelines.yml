@@ -1,7 +1,9 @@
-# Starter pipeline
+# E2E Tests for Concerns Casework
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
+
+name: 'Cypress E2E Testing'
 
 trigger:
 - main
@@ -11,15 +13,19 @@ pool:
 
 steps:
 - task: NodeTool@0
+    displayName:Install nodejs
   inputs:
     versionSpec: '16.4.0'
 
 - task: Npm@1
+    displayName:Install Npm
   inputs:
     command: 'install'
     workingDir: 'ConcernsCaseWork/ConcernsCaseWork.CypressTests'
 
+
 - task: PowerShell@2
+    displayName:Run Cypress Tests
   inputs:
     targetType: 'inline'
     script: "npm run cy:run -- --env='url=https://amsd-casework-dev.london.cloudapps.digital,username=e2e.cypress.test,password=c0ncerns987casew0rk'"
@@ -27,9 +33,10 @@ steps:
     workingDirectory: 'ConcernsCaseWork/ConcernsCaseWork.CypressTests'
 
 - task: PublishTestResults@2
+    displayName:Publish Results
   inputs:
     testResultsFormat: 'JUnit'
-    testResultsFiles: '**cypress/reports/mocha*.xml'
+    testResultsFiles: '**cypress/reports/mocha/mochawesome*.json'
     searchFolder: 'cypress/reports'
     failTaskOnFailedTests: true
     testRunTitle: 'Cypress CC E2E'
