@@ -1,6 +1,4 @@
 # E2E Tests for Concerns Casework
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
 name: 'Cypress E2E Testing'
@@ -15,13 +13,13 @@ steps:
 - task: NodeTool@0
   inputs:
     versionSpec: '16.4.0'
-    displayName: 'Install nodejs'
+    displayName: Install nodejs
 
 - task: Npm@1
   inputs:
     command: 'install'
     workingDir: 'ConcernsCaseWork/ConcernsCaseWork.CypressTests'
-    displayName: 'Install Npm'
+    displayName: Install Npm
 
 
 - task: PowerShell@2
@@ -30,7 +28,7 @@ steps:
     script: "npm run cy:run -- --env='url=https://amsd-casework-dev.london.cloudapps.digital,username=e2e.cypress.test,password=c0ncerns987casew0rk'"
     errorActionPreference: 'continue'
     workingDirectory: 'ConcernsCaseWork/ConcernsCaseWork.CypressTests'
-    displayName: 'Run Cypress Tests'
+    displayName: Run Cypress Tests
 
 - task: PublishTestResults@2
   inputs:
@@ -39,4 +37,4 @@ steps:
     searchFolder: 'cypress/reports'
     failTaskOnFailedTests: true
     testRunTitle: 'Cypress CC E2E'
-    displayName: 'Publish Results'
+    displayName: Publish Results
