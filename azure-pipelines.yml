@@ -10,23 +10,16 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
-- task: NodeTool@0
+- task: Install Node@0
   inputs:
     versionSpec: '16.4.0'
 
-- task: Npm@1
+- task: Install Npm@1
   inputs:
     command: 'install'
     workingDir: 'ConcernsCaseWork/ConcernsCaseWork.CypressTests'
 
-- task: PowerShell@2
+- task: Run Cypress E2E Tests@2
   inputs:
     targetType: 'inline'
     script: "npm run cy:run -- --env='url=https://amsd-casework-dev.london.cloudapps.digital,username=e2e.cypress.test,password=c0ncerns987casew0rk'"
@@ -36,7 +29,7 @@ steps:
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'JUnit'
-    testResultsFiles: '**/TEST-*.xml'
+    testResultsFiles: '**cypress/reports/mocha*.xml'
     searchFolder: 'cypress/reports'
     failTaskOnFailedTests: true
     testRunTitle: 'Cypress CC E2E'
