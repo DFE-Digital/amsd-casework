@@ -9,9 +9,9 @@
     "clean:reports": "rm -rf mochawesome-report/",
     "combine:reports": "mochawesome-merge  cypress/reports/mocha/*.json> cypress/reports/report.json",
     "create:html:report": "marge  ./cypress/reports/report.json -f report -o mochareports",
-    "generate:html:report": "npm run combine:reports && npm run create:html:report"
-		"scripts": "cypress run",
-  	"test": "npm run scripts"
+    "generate:html:report": "npm run combine:reports && npm run create:html:report",
+    "scripts": "cypress run",
+    "test": "npm run scripts"
   },
   "keywords": [
     "e2e",
