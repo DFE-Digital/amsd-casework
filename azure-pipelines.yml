@@ -27,7 +27,7 @@ steps:
   displayName: Run Cypress Tests
   inputs:
     targetType: 'inline'
-    script: "npm run cy:run -- --env='url=https://amsd-casework-dev.london.cloudapps.digital,username=e2e.cypress.test,password=c0ncerns987casew0rk'"
+    script: "npm run cy:run -- --env='url=${env:BASEURLDEV},username=${env:CYPRESSUN},password=${env:CYPRESSPW}'"
     errorActionPreference: 'continue'
     workingDirectory: 'ConcernsCaseWork/ConcernsCaseWork.CypressTests'
 
