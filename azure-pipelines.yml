@@ -36,7 +36,7 @@ steps:
   displayName: Publish Results
   inputs:
     testResultsFormat: 'JUnit'
-    testResultsFiles: '**mocha/mochawesome*.json'
+    testResultsFiles: '**mocha/mochawesome*.html'
     searchFolder: 'cypress/reports'
     failTaskOnFailedTests: true
     testRunTitle: 'Cypress CC E2E'
