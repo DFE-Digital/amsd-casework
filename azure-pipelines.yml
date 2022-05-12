@@ -36,8 +36,8 @@ steps:
   displayName: Publish Results
   inputs:
     testResultsFormat: 'JUnit'
-    testResultsFiles: '**mocha/mochawesome*.html'
-    searchFolder: 'cypress/reports'
+    testResultsFiles: '**/results-[hash].xml'
+    searchFolder: 'cypress/reports/junit'
     failTaskOnFailedTests: true
     testRunTitle: 'Cypress CC E2E'
 
