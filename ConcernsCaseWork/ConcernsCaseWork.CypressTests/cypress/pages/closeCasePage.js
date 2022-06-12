@@ -1,49 +1,9 @@
-class CaseManagementPage {
+class CloseCasePage {
 
     //locators
     getHeadingText() {
-        return cy.get('h1[class="govuk-heading-l"]');
+        return cy.get('HEADING ELEMENT LOCATOR HERE');
     }
-
-    getSubHeadingText() {
-        return cy.get('[class="govuk-caption-m"]');
-    }
-
-    getTrustHeadingText() {
-        return cy.get('h2[class="govuk-heading-m"]');
-    }
-
-    getConcernEditBtn() {
-        return cy.get('.govuk-table-case-details__cell_no_border [href*="edit_rating"]');
-    }
-
-    getAddToCaseBtn() {
-        return cy.get('[class="govuk-button"][role="button"]').contains('Add to case');
-    }
-
-    getCaseDetailsTab() {
-        return cy.get('[id="tab_case-details"]');
-    }
-
-    getTrustOverviewTab() {
-        return cy.get('[id="tab_trust-overview"]');
-    }
-
-    getOpenActionsTable() {
-        return cy.get('[id="open-case-actions"]');
-    }
-
-    getClosedActionsTable() {
-        return cy.get('[id="closed-case-actions"]');
-    }
-    
-
-    
-
-
-
-
-    
 
     //methods
 
@@ -76,4 +36,4 @@ class CaseManagementPage {
 }
 
     
-    export default new CaseManagementPage();
+    export default new CloseCasePage();

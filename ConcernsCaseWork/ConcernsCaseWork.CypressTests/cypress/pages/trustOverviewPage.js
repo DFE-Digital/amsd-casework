@@ -1,4 +1,4 @@
-class trustSelectPage {
+class TrustOverviewPage {
 
     //locators
     getSearchBox() {
@@ -40,4 +40,4 @@ class trustSelectPage {
 
 
 
-    export default new trustSelectPage();
+    export default new TrustOverviewPage();
