@@ -1,9 +1,16 @@
+import caseActionsBase from "/cypress/pages/caseActions/caseActionsBasePage";
+
 class SRMAAddPage {
 
     constructor() {
         //this.something = 
         this.arrDate = ["day1", "month1", "year1","day2", "month2", "year2", ];
     }
+
+    
+
+    //
+    //ADD SRMA ELEMENTS
 
 
     //locators
@@ -50,6 +57,54 @@ class SRMAAddPage {
         return     cy.get('[id="financial-plan-notes"]', { timeout: 30000 });
     }
 
+    getReasonRadio() {
+        return     cy.get('[id^="reason"]', { timeout: 30000 });
+    }
+
+    getReasonRadioLabel() {
+        return      this.getStatusRadioLabel();
+    }
+
+    //Date Offered
+    getDateAcceptedDay() {
+        return     cy.get('[id="dtr-day"]', { timeout: 30000 });
+    }
+
+    getDateAcceptedMonth() {
+        return     cy.get('[id="dtr-month"]', { timeout: 30000 });
+    }
+
+    getDateAcceptedYear() {
+        return     cy.get('[id="dtr-year"]', { timeout: 30000 });
+    }
+
+    getDateVisitStartDay() {
+        return     cy.get('[id="start-dtr-day"]', { timeout: 30000 });
+    }
+
+    getDateVisitStartMonth() {
+        return     cy.get('[id="start-dtr-month"]', { timeout: 30000 });
+    }
+    
+    getDateVisitStartYear() {
+        return     cy.get('[id="start-dtr-year"]', { timeout: 30000 });
+    }
+
+    
+    getDateVisitEndDay() {
+        return     cy.get('[id="end-dtr-day"]', { timeout: 30000 });
+    }
+
+    getDateVisitEndMonth() {
+        return     cy.get('[id="end-dtr-month"]', { timeout: 30000 });
+    }
+    
+    getDateVisitEndYear() {
+        return     cy.get('[id="end-dtr-year"]', { timeout: 30000 });
+    }
+
+
+
 
     //Option accepts the following args: DfESupport | FinancialForecast | FinancialPlan | FinancialReturns |
     //FinancialSupport| ForcedTermination | Nti| RecoveryPlan | Srma | Tff |
@@ -65,16 +120,157 @@ class SRMAAddPage {
         return    cy.get('[id="srma-notes-info"]', { timeout: 30000 });
     }
 
+    getAddCaseActionBtn() {
+        return caseActionsBase.getAddCaseActionBtn();
+    }
 
     //Methods
 
+    //sets the Case Action status
+    //Takes a string value of either "0", "1", "2" or "random"
+    setStatusSelect(value) {
+        //let random = false
+        cy.log("value "+value)
+
+        if(value == "random"){
+            let rand = Math.floor(Math.random()*2)
+
+            this.getStatusRadio().eq(rand).click();
+            cy.log(this.getStatusRadioLabel().eq(rand).invoke('text'));
+            return this.getStatusRadioLabel().eq(rand).invoke('text');
+
+        }else{
+            
+            this.getStatusRadio().eq(value).click();
+            cy.log(this.getStatusRadioLabel().eq(value).invoke('text'));
+            return this.getStatusRadioLabel().eq(value).invoke('text');
+
+        }
+
+	}
+
     statusSelect() {
+
 		let rand = Math.floor(Math.random()*2)
 
         this.getStatusRadio().eq(rand).click();
         cy.log(this.getStatusRadioLabel().eq(rand).invoke('text'));
         return this.getStatusRadioLabel().eq(rand).invoke('text');
 	}
+
+    
+    setDateOffered() {
+        cy.log("getDateOffered").then(() => {
+                  this.getDateOfferedDay().type(Math.floor(Math.random() * 21) + 10).invoke('val').then((day) => {
+                       this.getDateOfferedMonth().type(Math.floor(Math.random() *3) + 10).invoke('val').then((month) => {
+                           this.getDateOfferedYear().type("2023").invoke('val').then((year) => {
+                               cy.wrap(day+"-"+month+"-"+year).as("concat").then((concat) => {
+                               return concat ;
+                               });
+                           });
+                       });
+                    });
+            });
+    }
+
+    // Gets the element without setting vlues, useful fir instances where setting is not requiured
+   getDateOffered() {
+    cy.log("getDateOffered").then(() => {
+              this.getDateOfferedDay().invoke('val').then((day) => {
+                   this.getDateOfferedMonth().invoke('val').then((month) => {
+                       this.getDateOfferedYear().invoke('val').then((year) => {
+                           cy.wrap(day+"-"+month+"-"+year).as("concat").then((concat) => {
+                           return concat ;
+                           });
+                       });
+                   });
+
+               });
+        });
+    }
+
+    setReason(value) {
+
+        cy.log("value "+value)
+
+        if(value == "random"){
+            let rand = Math.floor(Math.random()*2)
+
+            this.getReasonRadio().eq(rand).click();
+            cy.log(this.getReasonRadioLabel().eq(rand).invoke('text'));
+            return this.getReasonRadioLabel().eq(rand).invoke('text');
+
+        }else{ 
+            this.getReasonRadio().eq(value).click();
+            cy.log(this.getReasonRadioLabel().eq(value).invoke('text'));
+            return this.getReasonRadioLabel().eq(value).invoke('text');
+
+        }
+
+	}
+
+   setDateAccepted() {
+    cy.log("getDateAccepted ").then(() => {
+              this.getDateAcceptedDay().type(Math.floor(Math.random() * 21) + 10).invoke('val').then((day) => {
+                   this.getDateAcceptedMonth().type(Math.floor(Math.random() *3) + 10).invoke('val').then((month) => {
+                       this.getDateAcceptedYear().type("20"+Math.floor(Math.random() *3) + 20).invoke('val').then((year) => {
+                           cy.wrap(day+"-"+month+"-"+year).as("concat").then((concat) => {
+                           return concat ;
+                           });
+                       });
+                   });
+
+               });
+        });
+    }
+
+    // Gets the element without setting vlues, useful fir instances where setting is not requiured
+   getDateAccepted() {
+    cy.log("getDateAccepted ").then(() => {
+              this.getDateAcceptedDay().invoke('val').then((day) => {
+                   this.getDateAcceptedMonth().invoke('val').then((month) => {
+                       this.getDateAcceptedYear().invoke('val').then((year) => {
+                           cy.wrap(day+"-"+month+"-"+year).as("concat").then((concat) => {
+                           return concat ;
+                           });
+                       });
+                   });
+
+               });
+        });
+    }
+
+    setDateVisitStart() {
+        cy.log("setDateStartVisit() ").then(() => {
+                  this.getDateVisitStartDay().type(Math.floor(Math.random() * 21) + 10).invoke('val').then((day) => {
+                       this.getDateVisitStartMonth().type(Math.floor(Math.random() *3) + 10).invoke('val').then((month) => {
+                           this.getDateVisitStartYear().type("20"+Math.floor(Math.random() *3) + 20).invoke('val').then((year) => {
+                               cy.wrap(day+"-"+month+"-"+year).as("concat").then((concat) => {
+                               return concat ;
+                               });
+                           });
+                       });
+    
+                   });
+            });
+        }
+
+        setDateVisitEnd() {
+            cy.log("getDateAccepted ").then(() => {
+                      this.getDateVisitEndDay().type(Math.floor(Math.random() * 21) + 10).invoke('val').then((day) => {
+                           this.getDateVisitEndMonth().type(Math.floor(Math.random() *3) + 10).invoke('val').then((month) => {
+                               this.getDateVisitEndYear().type("20"+Math.floor(Math.random() *3) + 20).invoke('val').then((year) => {
+                                   cy.wrap(day+"-"+month+"-"+year).as("concat").then((concat) => {
+                                   return concat ;
+                                   });
+                               });
+                           });
+        
+                       });
+                });
+            }
+
+
         
 }
 

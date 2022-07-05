@@ -1,17 +1,14 @@
-import SRMAAddPage from "../../../pages/caseActions/srmaAddPage";
-
 class SRMAEditPage {
 
 
     constructor() {
         //this.something = 
-        this.arrDate = ["day1", "month1", "year1","day2", "month2", "year2", ];
+        this.arrDate =[];
     }
 
 
     //locators
     //SRMAAddPage.getDateOfferedDay();
-
 
     getHeadingText() {
         return     cy.get('h1[class="govuk-heading-l"]');
@@ -21,41 +18,28 @@ class SRMAEditPage {
         return     cy.get('h2[class="govuk-heading-m"]');
     }
 
-    getCancelBtn() {
-        return     cy.get('[id="cancel-link"]', { timeout: 30000 });
+    //SRMA TABLE
+    //
+    getSrmaTable() {
+        return    cy.get('[class="govuk-table__cell"]', { timeout: 30000 });
     }
 
-    getContinueBtn() {
-        return     cy.get('[data-prevent-double-click="true"]', { timeout: 30000 }).contains('Add to case');
+    getSrmaTableRow() {
+        return    cy.get('tr.govuk-table__row', { timeout: 30000 });
     }
 
-
-    //Status
-    getStatusRadio() {
-        return     cy.get('[id*="status"]', { timeout: 30000 });
+    getSrmaTableRowEmpty() {
+       // return    cy.get('.govuk-tag.ragtag.ragtag__grey', { timeout: 30000 });
+        return    cy.get('tr.govuk-table__row', { timeout: 30000 }).contains('Empty');
     }
 
-    getStatusRadioLabel() {
-        return     cy.get('label.govuk-label.govuk-radios__label', { timeout: 30000 });
+    getNotesInfo() {
+        return    cy.get('[id="srma-notes-info"]', { timeout: 30000 });
     }
 
-    //Date Offered
-    getDateOfferedDay() {
-        return     cy.get('[id="dtr-day"]', { timeout: 30000 });
+    getTableAddEditLink() {
+        return    cy.get('[class="govuk-link"]', { timeout: 30000 });
     }
-
-    getDateOfferedMonth() {
-        return     cy.get('[id="dtr-month"]', { timeout: 30000 });
-    }
-
-    getDateOfferedYear() {
-        return     cy.get('[id="dtr-year"]', { timeout: 30000 });
-    }
-
-    getNotesTextBox() {
-        return     cy.get('[id="financial-plan-notes"]', { timeout: 30000 });
-    }
-
 
     //Option accepts the following args: DfESupport | FinancialForecast | FinancialPlan | FinancialReturns |
     //FinancialSupport| ForcedTermination | Nti| RecoveryPlan | Srma | Tff |
@@ -74,13 +58,36 @@ class SRMAEditPage {
 
     //Methods
 
-    statusSelect() {
-		let rand = Math.floor(Math.random()*2)
+    checkForTableEntry() {
 
-        this.getStatusRadio().eq(rand).click();
-        cy.log(this.getStatusRadioLabel().eq(rand).invoke('text'));
-        return this.getStatusRadioLabel().eq(rand).invoke('text');
-	}
+        //let $elem = Cypress.$('.govuk-list.govuk-error-summary__list');
+        let $elem = Cypress.$('.govuk-tag.ragtag.ragtag__grey');
+        cy.log(($elem).length)
+        
+        return ($elem.length);
+    }
+
+    getDateOffered() {
+
+        cy.log("getDateOffered").then(() => {
+
+                  this.getDateOfferedDay().invoke('val').then((day) => {
+
+                       this.getDateOfferedMonth().invoke('val').then((month) => {
+
+                           this.getDateOfferedYear().invoke('val').then((year) => {
+
+                               cy.wrap(day+"-"+month+"-"+year).as("concat").then((concat) => {
+   
+                               return concat ;
+                               });
+                           });
+                       });
+
+                   });
+           });
+
+   }
         
 }
 

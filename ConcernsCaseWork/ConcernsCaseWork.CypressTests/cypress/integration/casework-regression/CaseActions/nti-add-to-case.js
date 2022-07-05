@@ -18,7 +18,7 @@ describe("User can add Financial Plan case action to an existing case", () => {
 	let stText = "";
 	let newString  = "";
 	let $status = "";
-	let concatDate = "null" //["date1", "date2"];
+//	let concatDate = ["date1", "date2"];
 	let concatEndDate = "";
 	let arrDate = ["day1", "month1", "year1","day2", "month2", "year2", ];
 	let dpreq = "";
@@ -106,20 +106,67 @@ describe("User can add Financial Plan case action to an existing case", () => {
 
 	it("User can select a Financial Plan status", function () {
 
-		FinancialPlanPage.statusSelect().then((returnedVal) => {
-			cy.wrap(returnedVal.trim()).as("stText");
+		FinancialPlanPage.statusSelect().then((pleaseWork) => {
+			cy.wrap(pleaseWork.trim()).as("stText");
 
-			//newString = returnedVal
+			newString = pleaseWork
 
-			//cy.log("inside "+newString);
-			//cy.log("inside "+pleaseWork);
-			//cy.log("inside "+stText);
-			//cy.log("inside "+this.stText);
-			//cy.log("inside "+self.stText);
+			cy.log("inside "+newString);
+			cy.log("inside "+pleaseWork);
+			cy.log("inside "+stText);
+			cy.log("inside "+this.stText);
+			cy.log("inside "+self.stText);
 		});
 
 	});
 
+
+
+	it("User can enter a valid date", function () {
+
+		FinancialPlanPage.getDatePlanRequestedDay().type(Math.floor(Math.random() * 21) + 10).invoke('val').then(dtrday => {
+			cy.wrap(dtrday.trim()).as("day");
+		});
+
+		FinancialPlanPage.getDatePlanRequestedMon().type(Math.floor(Math.random() *3) + 10).invoke('val').then(dtrmon => {
+			cy.wrap(dtrmon.trim()).as("month");
+		});
+
+		FinancialPlanPage.getDatePlanRequestedYear().type("2022").invoke('val').then(dtryr => {
+			cy.wrap(dtryr.trim()).as("year");
+		});
+
+		//FinancialPlanPage.getUpdateBtn().click();
+		//utils.validateGovErorrList('invalid status');
+		//cy.reload();
+
+		FinancialPlanPage.getDatePlanReceivedDay().type(Math.floor(Math.random() * 21) + 10);
+		FinancialPlanPage.getDatePlanReceivedMon().type(Math.floor(Math.random() *3) + 10);
+		FinancialPlanPage.getDatePlanReceivedYear().type("2022");
+		//FinancialPlanPage.getUpdateBtn().click();
+
+		//cy.get('[id="dtr-day"]').type(Math.floor(Math.random() * 21) + 10);
+		//cy.get('[id="dtr-month"]').type(Math.floor(Math.random() *3) + 10);
+		//cy.get('[id="dtr-year"]').type("2022");
+
+		//cy.get('[id="dtr-day"]').invoke('val').then(dtrday => {
+		//	cy.wrap(dtrday.trim()).as("day");
+		//});
+
+		//cy.get('[id="dtr-month"]').invoke('val').then(dtrmon => {
+		//	cy.wrap(dtrmon.trim()).as("month");
+		//});
+
+		//cy.get('[id="dtr-year"]').invoke('val').then(dtryr => {
+		//	cy.wrap(dtryr.trim()).as("year");
+		//});
+		
+		//cy.log(this.day+"-"+this.month+"-"+this.year);	
+		//concatDate = (this.day+"-"+this.month+"-"+this.year);
+		//cy.log(concatDate);
+	});
+
+	//it("User cannot progress with more than the max character limit in the Notes section", () => {
 	it("User cannot progress with more than the max character limit in the Notes section", function () {
 		const lstring =
         'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwx';
@@ -152,11 +199,11 @@ describe("User can add Financial Plan case action to an existing case", () => {
 			cy.wrap(returnedStatus.trim()).as("stText");
 
 			newString = returnedStatus
-			//cy.log("inside "+newString);
+			cy.log("inside "+newString);
 			cy.log("inside "+returnedStatus);
-			//cy.log("inside "+stText);
-			//cy.log("inside "+this.stText);
-			//cy.log("inside "+self.stText);
+			cy.log("inside "+stText);
+			cy.log("inside "+this.stText);
+			cy.log("inside "+self.stText);
 		});
 
 		//cy.log("logging the result  "+FinancialPlanPage.setDatePlanRequested() )
@@ -165,26 +212,83 @@ describe("User can add Financial Plan case action to an existing case", () => {
 	});
 
 
-
-
-		it("User can set a valid date plan was requested", function () {
+	it("val date test", function () {
 			
-			cy.log("logging the result requested then ").then(() => {
-			cy.log(FinancialPlanPage.setDatePlanRequested() ).then((returnedVal) => { 
-				cy.log("logging the result inside nested val date test "+returnedVal)
-				});
+
+		cy.log("logging the result requested then ").then(() => {
+			cy.log(FinancialPlanPage.setDatePlanRequested2() ).then((returnedVal) => { 
+				cy.log("logging the result inside nested val date test"+returnedVal)
+
 			});
+		});
 	});
 
-		it("User can set a valid date plan was received", function () {
-				
-			cy.log("logging the result requested then ").then(() => {
-			cy.log(FinancialPlanPage.setDatePlanReceived() ).then((returnedVal) => { 
-				cy.log("logging the result inside nested val date test "+returnedVal)
-				});
+
+	
+	it("val date test - working", function () {
+			
+
+		cy.log("logging the result requested then ").then(() => {
+			cy.log(FinancialPlanPage.setDatePlanRequested1() ).then((returnedVal) => { 
+				cy.log("logging the result inside nested val date test"+returnedVal)
+
 			});
+		});
 	});
 
+		it("User can set a valid date", function () {
+			
+
+			cy.log("logging the result requested then ")
+			.then(() => {
+				cy.log(FinancialPlanPage.setDatePlanRequested2() )
+				.then((returnedVal) => { 
+					cy.log("logging the result inside nested "+returnedVal)
+
+				});
+
+
+			//	cy.log("logging the test result nested  "+resultVal)
+
+			//	});
+
+			});
+
+			//cy.log("logging the result recieved  "+FinancialPlanPage.setDatePlanReceived() );
+
+			//FinancialPlanPage.setDatePlanRequested2().then((returnedReq) => {
+				//cy.log("inside test returnedReq "+returnedReq);
+			//});
+
+			//FinancialPlanPage.setDatePlanReceived().then((returnedRec) => {
+			//	cy.log("inside test returnedRec "+returnedRec);
+			//});
+
+
+  /*
+		FinancialPlanPage.setDatePlanRequested().then((dpreqDate) => {
+			cy.wrap(dpreqDate.trim()).as("dpreq");
+
+			cy.log("inside "+this.dpreq);
+			cy.log("inside "+this.dpreqDate);
+			cy.log("inside "+self.dpreqDate);
+			cy.log("inside "+dpreqDate);
+		});
+
+
+		FinancialPlanPage.setDatePlanReceived().then((dprecDate) => {
+			cy.wrap(dprecDate.trim()).as("dprec");
+
+			cy.log("inside "+this.dprec);
+			cy.log("inside "+this.dprecDate);
+			cy.log("inside "+self.dprecDate);
+			cy.log("inside "+dprec);
+		});
+    */
+
+		//FinancialPlanPage.getUpdateBtn().click();
+
+	});
 
 	it("User can successfully add a Financial Plan case action to a case", () => {
 		FinancialPlanPage.getUpdateBtn().click();
@@ -210,6 +314,8 @@ describe("User can add Financial Plan case action to an existing case", () => {
 
 	it("User on a live Financial Plan page can see a list of items", function () {
 
+		//cy.get('[class="govuk-table__row"]').should(($row) => {
+		//cy.get('[class="govuk-table__row"]').then(($row) => {
 		FinancialPlanPage.getItemsTable().then(($row) => {
 			expect($row).to.have.length(4);
             expect($row.eq(0).text().trim()).to.contain(this.stText).and.to.match(/Status/i);
@@ -219,8 +325,12 @@ describe("User can add Financial Plan case action to an existing case", () => {
 	});
 });
 
+	/*
 
-	it("User on a live Financial Plan page can see conditional Edit/Add links", function () {
+
+
+
+	it("User on a live SRMA page can see conditional Edit/Add links", function () {
 
 			cy.get('[class="govuk-table__cell"]').each(($Cell, index) => {
 			cy.log("cell count is"+$Cell.length);		
@@ -238,7 +348,6 @@ describe("User can add Financial Plan case action to an existing case", () => {
 			});
 });
 
-/*
 	it("User can Add/Edit SRMA Status", function () {
 
 		cy.get('[class="govuk-link"]').eq(0).click();

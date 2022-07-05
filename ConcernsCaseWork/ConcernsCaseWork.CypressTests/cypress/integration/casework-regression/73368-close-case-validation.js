@@ -1,5 +1,9 @@
+import CaseManagementPage from "/cypress/pages/caseMangementPage";
 import LoginPage from "/cypress/pages/loginPage";
 import HomePage from "/cypress/pages/homePage";
+import utils from "/cypress/support/utils"
+import AddToCasePage from "/cypress/pages/caseActions/addToCasePage";
+import FinancialPlanPage from "/cypress/pages/caseActions/financialPlanPage";
 
 
 describe("Users can see warning messages on the case closure page", () => {
@@ -19,39 +23,28 @@ describe("Users can see warning messages on the case closure page", () => {
 		cy.get('.govuk-link[href^="case"]').eq(0).click();
 	});
 
-	it("User can close any open concerns", () => {
-		cy.closeAllOpenConcerns();
-		});
-
-
-
 	it("User can enter case closure page", () => {
-		//cy.closeSRMA();
 
-		const $elem = Cypress.$('table:nth-child(4) > thead > tr > th:nth-child(1)');
+		cy.log(CaseManagementPage.checkForOpenActions() );
 
-   		cy.log(($elem).length)
-			if (Cypress.$($elem).length > 1 ) { //Cypress.$ needed to handle element missing exception (>1 due to DOM)
+		if (CaseManagementPage.checkForOpenActions() > 0 ) { 
 
-			cy.log('Found Open Actions');
-
-						if (Cypress.$('[href*="/closed"]').length > 0 ) {
-
-							cy.log('Did not find active SRMA')
-						}else {
-							cy.log('SRMA is present')
-							cy.closeSRMA();
-						}
-
-			}else {
-			cy.log('No Open Actions Table Present');
+			cy.log('Open Actions Present');
+			cy.visit(Cypress.env('url'), { timeout: 30000 });
+			cy.checkForExistingCase(true);
+			//cy.closeAllOpenConcerns();
+			CaseManagementPage.closeAllOpenConcerns();
+		}else {
+			cy.log('No Open Actions Present');
+			//cy.closeAllOpenConcerns();
+			CaseManagementPage.closeAllOpenConcerns();
 
 			}
 
-		cy.get('#close-case-button').click()
-		
-		//cy.get('#close-case-button').click()
+	CaseManagementPage.getCloseCaseBtn().click();
+
 	})
+
 
 	it("User can type 200 characters max into the outcome box", function () {
 		cy.get("#case-outcomes-info").then(($info) =>{

@@ -1,5 +1,11 @@
 class CaseManagementPage {
 
+    constructor() {
+        //this.arrDate = ["day1", "month1", "year1","day2", "month2", "year2", ];
+        //this.$elem = Cypress.$('.govuk-table-case-details__cell_no_border [href*="edit_rating"]');
+        //const $elem = Cypress.$('.govuk-table-case-details__cell_no_border [href*="edit_rating"]');
+    }
+
     //locators
     getHeadingText() {
         return cy.get('h1[class="govuk-heading-l"]');
@@ -36,28 +42,33 @@ class CaseManagementPage {
     getClosedActionsTable() {
         return cy.get('[id="closed-case-actions"]');
     }
-    
 
-    
+    getCloseCaseBtn() {
+        return cy.get('#close-case-button');
+    }
 
-
-
-
-    
+    getLiveSRMALink() {
+        return cy.get('a[href*="/action/srma/"]');//.contains('srma');
+    }    
+   
 
     //methods
 
-    closeAllOpenConcerns() {
+   closeAllOpenConcerns() {
+
+    const $elem = Cypress.$('.govuk-table-case-details__cell_no_border [href*="edit_rating"]');
+
+    cy.log("About to close all lopen concerns");
+    cy.log("$elem.length ="+($elem).length)
+
         
-        const elem = '.govuk-table-case-details__cell_no_border [href*="edit_rating"]';
-    if (Cypress.$(elem).length > 0) { //Cypress.$ needed to handle element missing exception
-    
-        //cy.get('.govuk-table-case-details__cell_no_border [href*="edit_rating"]').its('length').then(($elLen) => {
+    if (($elem).length > 0 ) { //Cypress.$ needed to handle element missing exception
+
         this.getConcernEditBtn().its('length').then(($elLen) => {
-            cy.log($elLen)
+            cy.log("Method $elLen " +$elLen)
     
         while ($elLen > 0) {
-                //cy.get('.govuk-table-case-details__cell_no_border [href*="edit_rating"]').eq($elLen-1).click();
+
                 this.getConcernEditBtn().eq($elLen-1).click();
                 cy.get('[href*="closure"]').click();
                 cy.get('.govuk-button-group [href*="edit_rating/closure"]:nth-of-type(1)').click();
@@ -70,6 +81,17 @@ class CaseManagementPage {
         }
     
     }
+
+
+    checkForOpenActions() {
+
+        const $elem = Cypress.$('[id="open-case-actions"]');
+        cy.log(($elem).length)
+        
+        return ($elem.length);
+    }
+
+   
 
 
 
